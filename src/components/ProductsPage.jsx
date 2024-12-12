@@ -3,6 +3,7 @@ import { useEffect, useReducer } from "react";
 import { initialState, reducer } from "../reducer";
 import { APIProducts } from "../APIs/APIs";
 import NotFoundPage from "./404";
+import CardPage from "./CardPage";
 
 const ProductsPage = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -13,15 +14,16 @@ const ProductsPage = () => {
       .then((res) => dispatch({ type: "GETPRODUCTS", payload: res.data }))
       .catch((err) => dispatch({ type: "FAILED", payload: err.message }));
   }, []);
+  
   return (
     <div>
       {state.isLoading && <p> loading ...</p>}
-      <div>
+      <div className="Container">
         {state.data.map((item) => (
-          <h1 key={item.id}>{item.title}</h1>
+          <CardPage {...item} />
         ))}
       </div>
-      <div>{!!state.error && <NotFoundPage /> }</div>
+      <div>{!!state.error && <NotFoundPage />}</div>
     </div>
   );
 };
