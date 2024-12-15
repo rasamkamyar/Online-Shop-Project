@@ -1,25 +1,17 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import {
-  AboutPage,
-  CheckoutPage,
-  ContactPage,
-  DetailsPage,
-  NotFoundPage,
-  ProductsPage,
-} from "./components";
+import { CheckoutPage, DetailsPage, NotFoundPage, ProductsPage } from "./Pages";
 
-function App() {
+const App = () => {
   return (
     <Routes>
-      <Route index path="/" element={<Navigate to="/products" replace />} />
+      <Route index element={<Navigate to={"/products"} replace />} />
       <Route path="/products" element={<ProductsPage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/products/:id" element={<DetailsPage />} />
+      <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/*" element={<NotFoundPage />} />
+      <Route />
     </Routes>
   );
-}
+};
 
 export default App;
