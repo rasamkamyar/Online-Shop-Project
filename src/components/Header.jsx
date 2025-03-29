@@ -12,7 +12,7 @@ const Header = () => {
             </h1>
           </div>
           <Link
-            to="/CheckoutPage"
+            to="/checkout"
             className="text-gray-600 hover:text-gray-900 text-3xl"
           >
             <HiOutlineShoppingCart />
