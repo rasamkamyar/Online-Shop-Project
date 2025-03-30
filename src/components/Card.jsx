@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { TbListDetails, TbShoppingBag } from "react-icons/tb";
-import { shortenTitle } from "../helper/helper";
+import { shortenTitle } from "../helper";
 
 function Card({ data }) {
   const { id, title, price, image } = data;
