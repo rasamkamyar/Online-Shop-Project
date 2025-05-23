@@ -2,9 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { TbListDetails, TbShoppingBag } from "react-icons/tb";
 import { shortenTitle } from "../helper";
+import Details from "./Details";
+import { useCart } from "../context/CartContext";
 
-function Card({ data }) {
+const Card = ({ data }) => {
   const { id, title, price, image } = data;
+  const [state, dispatch] = useCart();
+
+  const clickHandler = () => {
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: { data },
+    });
+  };
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="relative group">
@@ -28,10 +38,15 @@ function Card({ data }) {
             className="flex items-center gap-1 text-gray-600 hover:text-gray-800 transition-colors"
           >
             <TbListDetails className="w-4 h-4" />
-            <span className="text-sm">Details</span>
+            <span className="text-sm">
+              <Details data={data} />
+            </span>
           </Link>
 
-          <button className="flex items-center gap-1 cursor-pointer bg-gray-600 text-white px-3 py-1.5 rounded-md hover:bg-gray-700 transition-colors text-sm">
+          <button
+            onClick={clickHandler}
+            className="flex items-center gap-1 cursor-pointer bg-gray-600 text-white px-3 py-1.5 rounded-md hover:bg-gray-700 transition-colors text-sm"
+          >
             <TbShoppingBag className="w-4 h-4" />
             <span>Add to Cart</span>
           </button>
@@ -39,6 +54,6 @@ function Card({ data }) {
       </div>
     </div>
   );
-}
+};
 
 export default Card;

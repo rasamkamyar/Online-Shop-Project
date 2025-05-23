@@ -1,4 +1,5 @@
-const DetailsPage = () => {
+const DetailsPage = ({data}) => {
+  console.log(data)
   return <div>DetailsPage</div>;
 };
 
