@@ -1,18 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { TbListDetails, TbShoppingBag } from "react-icons/tb";
-import { shortenTitle } from "../helper";
+import { MdOutlineDelete } from "react-icons/md";
+import { productQuantity, shortenTitle } from "../helper";
 import Details from "./Details";
 import { useCart } from "../context/CartContext";
 
 const Card = ({ data }) => {
   const { id, title, price, image } = data;
   const [state, dispatch] = useCart();
-  console.log(state);
 
-  const clickHandler = () => {
+  const quantity = productQuantity(state, id);
+  console.log(quantity);
+
+  const clickHandler = (type) => {
     dispatch({
-      type: "ADD_ITEM",
+      type,
       payload: data,
     });
   };
@@ -36,7 +39,7 @@ const Card = ({ data }) => {
         <div className="flex items-center justify-between">
           <Link
             to={`/products/${id}`}
-            className="flex items-center gap-1 text-gray-600 hover:text-gray-800 transition-colors"
+            className="flex items-center gap-1 text-slate-800 hover:text-slate-900 transition-colors"
           >
             <TbListDetails className="w-5 h-5" />
             <span className="text-sm">
@@ -44,12 +47,50 @@ const Card = ({ data }) => {
             </span>
           </Link>
 
-          <button
-            onClick={clickHandler}
-            className="flex items-center gap-1 cursor-pointer bg-gray-600 text-white px-3 py-1.5 rounded-md hover:bg-gray-700 transition-colors text-sm"
-          >
-            <TbShoppingBag className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            {quantity === 1 && (
+              <button
+                onClick={() => clickHandler("REMOVE_ITEM")}
+                className="flex items-center justify-center w-8 h-8 cursor-pointer bg-rose-100 text-rose-900 rounded-full hover:bg-rose-200 transition-colors shadow-sm hover:shadow-md"
+                title="Remove item"
+              >
+                <MdOutlineDelete className="w-5 h-5" />
+              </button>
+            )}
+            {quantity > 1 && (
+              <button
+                onClick={() => clickHandler("DECREASE_ITEM")}
+                className="flex items-center justify-center w-8 h-8 cursor-pointer bg-slate-100 text-slate-600 rounded-full hover:bg-slate-200 transition-colors shadow-sm hover:shadow-md"
+                title="Decrease quantity"
+              >
+                -
+              </button>
+            )}
+
+            {!!quantity && (
+              <span className="min-w-[2rem] text-center font-medium text-slate-800">
+                {quantity}
+              </span>
+            )}
+
+            {quantity === 0 ? (
+              <button
+                onClick={() => clickHandler("ADD_ITEM")}
+                className="flex items-center justify-center w-8 h-8 cursor-pointer bg-emerald-100 text-emerald-900 rounded-full hover:bg-emerald-200 transition-colors shadow-sm hover:shadow-md"
+                title="Add to cart"
+              >
+                <TbShoppingBag className="w-5 h-5" />
+              </button>
+            ) : (
+              <button
+                onClick={() => clickHandler("INCREASE_ITEM")}
+                className="flex items-center justify-center w-8 h-8 cursor-pointer bg-slate-100 text-slate-600 rounded-full hover:bg-slate-200 transition-colors shadow-sm hover:shadow-md"
+                title="Increase quantity"
+              >
+                +
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

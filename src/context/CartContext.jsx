@@ -9,7 +9,6 @@ const initialData = {
   checkout: false,
 };
 const reducer = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case "ADD_ITEM":
       const selectedProduct = state.selectedItems.find(
@@ -45,7 +44,7 @@ const reducer = (state, action) => {
       const decreasedIndex = state.selectedItems.findIndex(
         (item) => item.id === action.payload.id
       );
-      state.selectedItems[decreasedIndex].quantity++;
+      state.selectedItems[decreasedIndex].quantity -=1;
       return {
         ...state,
         ...sumProducts(state.selectedItems),
