@@ -11,7 +11,7 @@ const initialData = {
 const reducer = (state, action) => {
   console.log(action);
   switch (action.type) {
-    case "ADD_TO_CART":
+    case "ADD_ITEM":
       const selectedProduct = state.selectedItems.find(
         (item) => item.id === action.payload.id
       );
@@ -22,6 +22,41 @@ const reducer = (state, action) => {
         ...state,
         ...sumProducts(state.selectedItems),
         checkout: false,
+      };
+    case "REMOVE_ITEM":
+      const newSelectedItems = state.selectedItems.filter(
+        (item) => item.id !== action.payload.id
+      );
+      return {
+        ...state,
+        selectedItems: [...newSelectedItems],
+        ...sumProducts(newSelectedItems),
+      };
+    case "INCREASE_ITEM":
+      const increasedIndex = state.selectedItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      state.selectedItems[increasedIndex].quantity++;
+      return {
+        ...state,
+        ...sumProducts(state.selectedItems),
+      };
+    case "DECREASE_ITEM":
+      const decreasedIndex = state.selectedItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      state.selectedItems[decreasedIndex].quantity++;
+      return {
+        ...state,
+        ...sumProducts(state.selectedItems),
+      };
+    case "CHECKOUT":
+      return {
+        ...state,
+        selectedItems: [],
+        itemCounter: 0,
+        total: 0,
+        checkout: true,
       };
     default:
       throw new Error("Invalid Action!");

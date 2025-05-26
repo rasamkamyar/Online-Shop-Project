@@ -9,10 +9,10 @@ const Card = ({ data }) => {
   const { id, title, price, image } = data;
   const [state, dispatch] = useCart();
   console.log(state);
-  
+
   const clickHandler = () => {
     dispatch({
-      type: "ADD_TO_CART",
+      type: "ADD_ITEM",
       payload: data,
     });
   };
@@ -38,7 +38,7 @@ const Card = ({ data }) => {
             to={`/products/${id}`}
             className="flex items-center gap-1 text-gray-600 hover:text-gray-800 transition-colors"
           >
-            <TbListDetails className="w-4 h-4" />
+            <TbListDetails className="w-5 h-5" />
             <span className="text-sm">
               <Details data={data} />
             </span>
@@ -48,8 +48,7 @@ const Card = ({ data }) => {
             onClick={clickHandler}
             className="flex items-center gap-1 cursor-pointer bg-gray-600 text-white px-3 py-1.5 rounded-md hover:bg-gray-700 transition-colors text-sm"
           >
-            <TbShoppingBag className="w-4 h-4" />
-            <span>Add to Cart</span>
+            <TbShoppingBag className="w-5 h-5" />
           </button>
         </div>
       </div>

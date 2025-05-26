@@ -48,7 +48,7 @@ const sumProducts = (products) => {
   );
 
   const total = products
-    .reduce((total, product) => total + product.price * product.quantity, 2)
+    .reduce((total, product) => total + product.price * product.quantity, 0)
     .toFixed(2);
 
   return { itemCounter, total };
