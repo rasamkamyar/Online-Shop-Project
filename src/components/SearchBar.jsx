@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 const SearchBar = ({ search, setSearch, handleSearch }) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-4">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-center gap-2">
         <input
           onChange={(e) => setSearch(e.target.value.toLowerCase().trim())}
           value={search}

@@ -7,13 +7,16 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <h1 className="text-xl font-bold text-gray-800 ml-0.5">
+            <Link
+              to="/products"
+              className="text-xl font-bold text-gray-900 hover:text-gray-600 ml-0.5"
+            >
               Online Shop
-            </h1>
+            </Link>
           </div>
           <Link
             to="/checkout"
-            className="text-gray-600 hover:text-gray-900 text-3xl"
+            className="text-gray-900 hover:text-gray-600 text-3xl"
           >
             <HiOutlineShoppingCart />
           </Link>
